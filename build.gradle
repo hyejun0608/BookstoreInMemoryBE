@@ -13,8 +13,31 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//starter-web
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	//lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	//spring security
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// validation (For using @Valid Annotation)
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	//jpa
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	//db
+	implementation 'com.h2database:h2'
+	implementation 'mysql:mysql-connector-java'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+}
+
+jar { // plain-jar enabled false
+	enabled = false
 }
 
 tasks.named('test') {
