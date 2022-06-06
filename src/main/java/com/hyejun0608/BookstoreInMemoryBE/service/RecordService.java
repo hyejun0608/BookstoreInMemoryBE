@@ -1,11 +1,12 @@
 package com.hyejun0608.BookstoreInMemoryBE.service;
 
+import com.hyejun0608.BookstoreInMemoryBE.dto.request.RecordRequestDTO;
 import com.hyejun0608.BookstoreInMemoryBE.dto.response.RecordResponseDTO;
 import com.hyejun0608.BookstoreInMemoryBE.entity.Record;
 import com.hyejun0608.BookstoreInMemoryBE.entity.RecordRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class RecordService {
         this.recordRepository = recordRepository;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<RecordResponseDTO> getRecordList() {
         List<Record> records = recordRepository.findAll();
         List<RecordResponseDTO> recordResponseDTOList = new ArrayList<>();
@@ -35,6 +36,18 @@ public class RecordService {
             );
         }
         return recordResponseDTOList;
+    }
+
+    @Transactional
+    public void createRecord(RecordRequestDTO request) {
+        recordRepository.save(
+                Record.builder()
+                        .title(request.getTitle())
+                        .author(request.getAuthor())
+                        .content(request.getContent())
+                        .count(request.getCount())
+                        .build()
+        );
     }
 
 }
