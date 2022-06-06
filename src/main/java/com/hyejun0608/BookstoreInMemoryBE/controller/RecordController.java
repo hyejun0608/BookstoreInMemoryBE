@@ -1,11 +1,10 @@
 package com.hyejun0608.BookstoreInMemoryBE.controller;
 
+import com.hyejun0608.BookstoreInMemoryBE.dto.request.RecordRequestDTO;
 import com.hyejun0608.BookstoreInMemoryBE.dto.response.RecordResponseDTO;
 import com.hyejun0608.BookstoreInMemoryBE.service.RecordService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,8 +16,13 @@ public class RecordController {
 
     private final RecordService recordService;
 
-    @GetMapping("/")
+    @GetMapping
     public List<RecordResponseDTO> getRecord() {
         return recordService.getRecordList();
+    }
+
+    @PostMapping
+    public void createRecord(@RequestBody RecordRequestDTO request) {
+        recordService.createRecord(request);
     }
 }
